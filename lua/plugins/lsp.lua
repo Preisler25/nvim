@@ -35,6 +35,9 @@ return { -- add pyright to lspconfig
 
       -- setting custom keymap
       vim.keymap.set("n", "K", vim.lsp.buf.hover, { buffer = 0, desc = "Show hover information" })
+      vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, { buffer = 0, desc = "Rename symbol" })
+      vim.keymap.set("n", "<leader>oa", vim.lsp.buf.code_action, { desc = "Code action" })
+      vim.keymap.set("n", "<leader>od", vim.diagnostic.open_float, { desc = "Opens diagnostic" })
     end,
   },
 }
