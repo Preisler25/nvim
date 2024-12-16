@@ -1,23 +1,33 @@
 return {
   "nvim-neotest/neotest",
   dependencies = {
+    "nvim-lua/plenary.nvim",
     "nvim-neotest/nvim-nio",
     "sidlatau/neotest-dart",
   },
+
   opts = {
     -- Can be a list of adapters like what neotest expects,
     -- or a list of adapter names,
     -- or a table of adapter names, mapped to adapter configs.
     -- The adapter will then be automatically loaded with the config.
     adapters = {
-      require("neotest-dart")({
-        command = "flutter", -- Command being used to run tests. Defaults to `flutter`
-        -- Change it to `fvm flutter` if using FVM
-        -- change it to `dart` for Dart only tests
-        use_lsp = true, -- When set Flutter outline information is used when constructing test name.
-        -- Useful when using custom test names with @isTest annotation
-        custom_test_method_names = {},
-      }),
+      ["neotest-dart"] = {
+        cwd = "test",
+        dap = true,
+        dap_config = {
+          type = "dart",
+          request = "launch",
+          name = "Dart Test",
+          program = "${workspaceFolder}/test",
+          args = { "--machine", "--enable-vm-service=0" },
+          cwd = "${workspaceFolder}",
+          env = { DART_VM_OPTIONS = "--enable-asserts" },
+          sourceMaps = true,
+          console = "neotest",
+          preLaunchTask = "dart-test",
+        },
+      },
     },
     -- Example for loading neotest-golang with a custom config
     -- adapters = {
