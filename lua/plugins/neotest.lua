@@ -5,7 +5,19 @@ return {
     "nvim-neotest/nvim-nio",
     "sidlatau/neotest-dart",
   },
-
+  config = function()
+    require("neotest").setup({
+      adapters = {
+        require("neotest-dart")({
+          command = "flutter", -- Command being used to run tests. Defaults to `flutter`
+          -- Change it to `fvm flutter` if using FVM
+          -- Change it to `dart` for Dart-only tests
+          use_lsp = true, -- Use Flutter outline information for test names
+          custom_test_method_names = {}, -- Custom test method names (optional)
+        }),
+      },
+    })
+  end,
   opts = {
     -- Can be a list of adapters like what neotest expects,
     -- or a list of adapter names,
