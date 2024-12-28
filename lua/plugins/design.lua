@@ -1,14 +1,16 @@
 return {
   -- add gruvbox and nord
 
-  --{ "ellisonleao/gruvbox.nvim" },
+  { "ellisonleao/gruvbox.nvim" },
   { "shaunsingh/nord.nvim" },
+  { "folke/tokyonight.nvim" },
+  { "catppuccin/nvim", name = "catppuccin", priority = 1000 },
 
   -- Configure LazyVim to load gruvbox
   {
     "LazyVim/LazyVim",
     opts = {
-      colorscheme = "nord",
+      colorscheme = "catppuccin-mocha",
     },
   },
   -- change trouble config
