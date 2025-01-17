@@ -9,6 +9,7 @@ return { -- add pyright to lspconfig
           "shellcheck",
           "shfmt",
           "flake8",
+          "csharp-language-server",
         },
       })
     end,
@@ -22,6 +23,7 @@ return { -- add pyright to lspconfig
         ensure_installed = {
           "ast_grep",
           "lua_ls",
+          "omnisharp",
         },
       })
     end,
@@ -33,6 +35,18 @@ return { -- add pyright to lspconfig
       lspconfig.lua_ls.setup({})
       lspconfig.ast_grep.setup({})
       lspconfig.sourcekit.setup({})
+
+      lspconfig.omnisharp.setup({
+        cmd = { "omnisharp" },
+        on_attach = function(client, bufnr)
+          -- Example keymap setup
+          vim.keymap.set("n", "K", vim.lsp.buf.hover, { buffer = bufnr, desc = "Show hover information" })
+          vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, { buffer = bufnr, desc = "Rename symbol" })
+          vim.keymap.set("n", "<leader>of", vim.lsp.buf.definition, { buffer = bufnr, desc = "Go to definition" })
+          vim.keymap.set("n", "<leader>oa", vim.lsp.buf.code_action, { buffer = bufnr, desc = "Code action" })
+          vim.keymap.set("n", "<leader>od", vim.diagnostic.open_float, { buffer = bufnr, desc = "Open diagnostic" })
+        end,
+      })
 
       -- setting custom keymap
       vim.keymap.set("n", "K", vim.lsp.buf.hover, { buffer = 0, desc = "Show hover information" })
