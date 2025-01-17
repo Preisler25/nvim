@@ -15,7 +15,6 @@ return {
       -- Where to get completion results from
       sources = cmp.config.sources({
         { name = "nvim_lsp" },
-        { name = "luasnip" },
         { name = "buffer" },
         { name = "path" },
       }),
@@ -44,7 +43,7 @@ return {
       }),
       snippets = {
         expand = function(args)
-          luasnip.lsp_expand(args.body)
+          luasnip.lsp_expand(args)
         end,
       },
     }

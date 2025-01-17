@@ -9,8 +9,6 @@ return { -- add pyright to lspconfig
           "shellcheck",
           "shfmt",
           "flake8",
-          "omnisharp",
-          "typescript-language-server",
         },
       })
     end,
@@ -24,8 +22,6 @@ return { -- add pyright to lspconfig
         ensure_installed = {
           "ast_grep",
           "lua_ls",
-          "omnisharp",
-          "tsserver",
         },
       })
     end,
@@ -37,21 +33,6 @@ return { -- add pyright to lspconfig
       lspconfig.lua_ls.setup({})
       lspconfig.ast_grep.setup({})
       lspconfig.sourcekit.setup({})
-
-      -- C#, Razor (CSHTML)
-      lspconfig.omnisharp.setup({
-        cmd = { "omnisharp" },
-        filetypes = { "cs", "cshtml" }, -- Include Razor files
-        root_dir = lspconfig.util.root_pattern("*.sln", "*.csproj", ".git"),
-      })
-
-      -- JavaScript and TypeScript
-      lspconfig.tsserver.setup({
-        filetypes = { "javascript", "javascriptreact", "typescript", "typescriptreact" },
-        root_dir = lspconfig.util.root_pattern("package.json", "tsconfig.json", ".git"),
-      })
-
-      lspconfig.omnisharp.setup({})
 
       -- setting custom keymap
       vim.keymap.set("n", "K", vim.lsp.buf.hover, { buffer = 0, desc = "Show hover information" })
