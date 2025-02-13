@@ -9,6 +9,7 @@ return { -- add pyright to lspconfig
           "shellcheck",
           "shfmt",
           "flake8",
+          "typescript-language-server",
         },
       })
     end,
