@@ -24,7 +24,7 @@ return { -- add pyright to lspconfig
           "ast_grep",
           "lua_ls",
           "pyright", -- Python (for auto-imports)
-          "tsserver", -- TypeScript & JavaScript (for auto-imports)
+          "ts_ls", -- TypeScript & JavaScript (for auto-imports)
           "gopls", -- Go
           "rust_analyzer", -- Rust
         },
@@ -50,7 +50,7 @@ return { -- add pyright to lspconfig
       })
 
       -- TypeScript (Auto-import enabled)
-      lspconfig.tsserver.setup({
+      lspconfig.ts_ls.setup({
         settings = {
           typescript = {
             suggest = { autoImports = true, completeFunctionCalls = true },
