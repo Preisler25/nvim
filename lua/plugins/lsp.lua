@@ -22,6 +22,10 @@ return { -- add pyright to lspconfig
         ensure_installed = {
           "ast_grep",
           "lua_ls",
+          "pyright", -- Python (for auto-imports)
+          "tsserver", -- TypeScript & JavaScript (for auto-imports)
+          "gopls", -- Go
+          "rust_analyzer", -- Rust
         },
       })
     end,
@@ -33,6 +37,34 @@ return { -- add pyright to lspconfig
       lspconfig.lua_ls.setup({})
       lspconfig.ast_grep.setup({})
       lspconfig.sourcekit.setup({})
+      -- Python (Auto-import enabled)
+      lspconfig.pyright.setup({
+        settings = {
+          python = {
+            analysis = {
+              autoImportCompletions = true,
+            },
+          },
+        },
+      })
+
+      -- TypeScript (Auto-import enabled)
+      lspconfig.tsserver.setup({
+        settings = {
+          typescript = {
+            suggest = { autoImports = true, completeFunctionCalls = true },
+          },
+          javascript = {
+            suggest = { autoImports = true, completeFunctionCalls = true },
+          },
+        },
+      })
+
+      -- Rust
+      lspconfig.rust_analyzer.setup({})
+
+      -- Go
+      lspconfig.gopls.setup({})
 
       -- setting custom keymap
       vim.keymap.set("n", "K", vim.lsp.buf.hover, { buffer = 0, desc = "Show hover information" })

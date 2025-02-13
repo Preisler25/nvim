@@ -7,46 +7,45 @@ return {
     "hrsh7th/cmp-path",
     "hrsh7th/cmp-buffer",
     "L3MON4D3/LuaSnip",
+    "saadparwaiz1/cmp_luasnip", -- Add this for LuaSnip completion
   },
   config = function()
     local cmp = require("cmp")
-    local luasnip = require("cmp")
-    local opts = {
-      -- Where to get completion results from
+    local luasnip = require("luasnip") -- Fix incorrect import
+
+    cmp.setup({
+      snippet = {
+        expand = function(args)
+          luasnip.lsp_expand(args.body) -- Fix incorrect snippet expansion
+        end,
+      },
       sources = cmp.config.sources({
         { name = "nvim_lsp" },
         { name = "buffer" },
         { name = "path" },
+        { name = "luasnip" }, -- Ensure LuaSnip is a source
       }),
       mapping = cmp.mapping.preset.insert({
-        -- Make 'enter' key select the completion
         ["<CR>"] = cmp.mapping.confirm({ select = true }),
-        -- Super-tab behavior
         ["<Down>"] = cmp.mapping(function(original)
           if cmp.visible() then
-            cmp.select_next_item() -- run completion selection if completing
+            cmp.select_next_item()
           elseif luasnip.expand_or_jumpable() then
-            luasnip.expand_or_jump() -- expand snippets
+            luasnip.expand_or_jump()
           else
-            original() -- run the original behavior if not completing
+            original()
           end
         end, { "i", "s" }),
         ["<Up>"] = cmp.mapping(function(original)
           if cmp.visible() then
             cmp.select_prev_item()
-          elseif luasnip.expand_or_jumpable() then
+          elseif luasnip.jumpable(-1) then
             luasnip.jump(-1)
           else
             original()
           end
         end, { "i", "s" }),
       }),
-      snippets = {
-        expand = function(args)
-          luasnip.lsp_expand(args)
-        end,
-      },
-    }
-    cmp.setup(opts)
+    })
   end,
 }
